@@ -1,0 +1,6 @@
+[submodule "ipd-implementation"]
+	path = ipd-implementation
+	url = https://git.informatik.tu-cottbus.de/mehneste/ipd-implementation
+[submodule "mini-internet"]
+	path = mini-internet
+	url = https://git.informatik.tu-cottbus.de/rechnernetze/mini-internet
