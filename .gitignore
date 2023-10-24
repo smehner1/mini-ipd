@@ -1,4 +1,5 @@
 miniconda3/
 */__pycache__/
+traffic_generator/__pycache__
 
 shared_directories/router_files/netflow_mini-internet/
