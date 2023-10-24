@@ -2,15 +2,33 @@
 
 This Repository allows you to start a Mini-Internet, generate Traffic and apply the Ingress Point Detection Algorithm, which we call Mini-IPD. In the following, we explain how you can setup the Mini-IPD on your machine.
 
-## Installation
+## TODOs
 
-1. Install [Miniconda](https://docs.conda.io/projects/miniconda/en/latest/miniconda-install.html) on your system if not already done
-2. Create your Conda environment with:
+- [ ] test single modules using relative paths
+    - [ ] netflow collector
+    - [ ] traffic generator
+- [ ] improve pipeline implementation
+- [ ] Instructions for general usage
 
-    2.1. `$ conda config --add channels conda-forge`
+## Requirements
 
-    2.2. `$ conda create --name mini-ipd --file requirements.txt`
+- Docker (+ rights to execute it)
 
-3. Clone this [Repository](https://git.informatik.tu-cottbus.de/bergmmax/mini-ipd.git)
-4. Setup your Repository: `$ bash ./setup_repo.sh`
-5. TBD
+**TBA**
+
+## Installation & First Startup
+
+1. Clone this [Repository](https://git.informatik.tu-cottbus.de/bergmmax/mini-ipd.git)
+2. Setup your Repository: `$ bash ./setup_repo.sh`
+    - Installs [Miniconda](https://docs.conda.io/projects/miniconda/en/latest/index.html#) if you have not installed it yet
+        - if installed call script like: `$ bash ./setup_repo.sh path/to/miniconda/installation`
+    - creates a conda environment including required packages (`mini-ipd`)
+    - git submodule setup (Mini-Internet and IPD)
+    - Startup basic Mini-IPD (`$ bash ./start_mini_ipd.sh path/to/miniconda/installation`)
+        - startup a Mini-Internet with 5 ASes
+        - configure Mini-Internet for IPD usage
+        - start Traffic Generator to get a first 24-Hour Trace within 2 hours
+
+## Further Usage Instructions
+
+**TBA**
