@@ -37,11 +37,11 @@ def init_parser() -> argparse.ArgumentParser:
     parser.add_argument('--dir',
                         help='path to directory of mini internet',
                         type=str,
-                        default='/home/max/WORK/mini-internet/',
+                        default='../mini-internet/',
                         )
     parser.add_argument('--sharedir',
                         help='path to directory of shared files in container',
-                        default='/home/max/WORK/masterthesis/mini_internet/host_files/',
+                        default='../shared_directories/host_files/',
                         type=str,
                         )
     parser.add_argument('-t',

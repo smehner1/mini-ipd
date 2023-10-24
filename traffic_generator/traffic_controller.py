@@ -38,16 +38,16 @@ def init_parser() -> argparse.ArgumentParser:
     parser.add_argument('--dir',
                         help='path to directory of mini internet',
                         type=str,
-                        default='/home/max/WORK/mini-internet/',
+                        default='../mini-internet/',
                         )
     parser.add_argument('--sharedir',
-                        help='path to directory of mini internet',
+                        help='path to directory of shared Folder in container',
                         type=str,
                         default='/home/host_files/',
                         )
     parser.add_argument('--sharedirlocal',
-                        help='path to directory of shared files in container',
-                        default='/home/max/WORK/masterthesis/mini_internet/host_files/',
+                        help='path to directory of shared files on your system',
+                        default='../shared_directories/host_files/',
                         type=str,
                         )
     parser.add_argument('-g',
@@ -235,7 +235,7 @@ def get_expected_iteration_flows(iteration: int) -> int:
 
     for i in [2, 3, 4, 5]:
         connections: pd.DataFrame = pd.read_csv(
-            f'/home/max/WORK/masterthesis/mini_internet/host_files/connections_{i}.csv')
+            f'../shared_directories/host_files/connections_{i}.csv')
         flows += len(connections.query(f'iteration == {iteration}'))
 
     return flows
@@ -269,7 +269,7 @@ def start_daily_traffic() -> None:
                     [],
                     columns=['iteration', 'src', 'sip', 'dst', 'dip', 'router', 'sport', 'dport'])
                 clear_df.to_csv(
-                    f'/home/max/WORK/masterthesis/mini_internet/host_files/connections_{net}.csv',
+                    f'../shared_directories/host_files/connections_{net}.csv',
                     index=False
                 )
 
@@ -375,5 +375,5 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    main()
-    # start_daily_traffic()
+    # main()
+    start_daily_traffic()
