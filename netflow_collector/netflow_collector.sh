@@ -6,12 +6,14 @@
 netflow_path=$1
 date=$2
 dst_path=$3
+conda_dir=$4
+collector_dir=$5
 
-PYTHON="/home/max/WORK/masterthesis/miniconda3/envs/mini/bin/python3"
+PYTHON=$conda_dir/envs/mini/bin/python3
 
 chmod ugo+rw -R ${netflow_path}
 
-$PYTHON /home/max/WORK/masterthesis/mini_internet_tools/netflow_collector/preprocess_netflow.py -nf ${netflow_path}${date}/ -outname ${netflow_path}/preprocessed_${date}
+$PYTHON ${collector_dir}/preprocess_netflow.py -nf ${netflow_path}${date}/ -outname ${netflow_path}/preprocessed_${date}
 
 rm -rf ${dst_path}
 

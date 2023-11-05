@@ -17,13 +17,22 @@ $PYTHON create_mini_internet_configs.py 5
 cd ../mini-internet/platform
 
 # build Docker Container for router, host and IXP
-docker build --tag=thomahol/d_router docker_images/router/
-docker build --tag=thomahol/d_ixp docker_images/ixp/
-docker build --tag=thomahol/d_host docker_images/host/
+docker build --no-cache --tag=thomahol/d_router docker_images/router/
+docker build --no-cache --tag=thomahol/d_ixp docker_images/ixp/
+docker build --no-cache --tag=thomahol/d_host docker_images/host/
+
+docker build --no-cache --tag=d_ssh docker_images/ssh/
+docker build --no-cache --tag=d_measurement docker_images/measurement/
+docker build --no-cache --tag=d_dns docker_images/dns/
+docker build --no-cache --tag=d_switch docker_images/switch/
+docker build --no-cache --tag=d_matrix docker_images/matrix/
+docker build --no-cache --tag=d_vpn docker_images/vpn/
+docker build --no-cache --tag=d_vlc docker_images/vlc/
+docker build --no-cache --tag=d_hostm docker_images/hostm/
 
 bash ./startup.sh
 bash ./startup_additional_scripts.sh kill
-bash ./startup_additional_scripts.sh
+bash ./startup_additional_scripts.sh ${miniconda}
 
 
 # configure Mini-Internet for IPD usage
@@ -32,7 +41,7 @@ $PYTHON configure.py
 
 
 # Start a 2-hour Traffic Generation Task
-cd ../traffic_generator
-bash ./generate_day_traffic.sh ${miniconda}
+# cd ../traffic_generator
+# bash ./generate_day_traffic.sh ${miniconda}
 
 cd $start

@@ -5,7 +5,8 @@ This Repository allows you to start a Mini-Internet, generate Traffic and apply 
 ## TODOs
 
 - [ ] test single modules using relative paths
-    - [ ] netflow collector
+    - [x] garbage collector!
+    - [x] netflow collector
     - [ ] traffic generator
 - [ ] improve pipeline implementation
 - [ ] Instructions for general usage
