@@ -8,6 +8,7 @@ date=$2
 dst_path=$3
 conda_dir=$4
 collector_dir=$5
+verbose=$6
 
 PYTHON=$conda_dir/envs/mini/bin/python3
 
@@ -17,4 +18,8 @@ $PYTHON ${collector_dir}/preprocess_netflow.py -nf ${netflow_path}${date}/ -outn
 
 rm -rf ${dst_path}
 
-zcat ${netflow_path}/preprocessed_${date}.csv.gz
+if [ $verbose -eq 1 ]; then
+    echo preprocessed_${date}.csv.gz
+else
+    zcat ${netflow_path}/preprocessed_${date}.csv.gz
+fi

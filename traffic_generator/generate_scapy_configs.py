@@ -59,6 +59,10 @@ def init_parser() -> argparse.ArgumentParser:
                         default=False,
                         type=bool,
                         )
+    parser.add_argument('--static',
+                        help='flag to generate a static configuration',
+                        action='store_true',
+                        )
 
     return parser
 
@@ -416,8 +420,10 @@ def main() -> None:
     target_ases: list = as_info['id'].to_list()
     source_ases: list = [net for net in target_ases if net != CENTER_AS]
 
-    # generate_configs(target_flows, portions, target_ases, source_ases, args.sharedir)
-    generate_daily_configs(10, target_flows, portions, target_ases, source_ases, args.sharedir, args.hyper)
+    if args.static:
+        generate_configs(target_flows, portions, target_ases, source_ases, args.sharedir)
+    else:
+        generate_daily_configs(10, target_flows, portions, target_ases, source_ases, args.sharedir, args.hyper)
 
 
 if __name__ == '__main__':

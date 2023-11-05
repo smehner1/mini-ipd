@@ -43,6 +43,10 @@ def init_Parser() -> argparse.ArgumentParser:
                         help='time in seconds between each collection',
                         default=60,
                         )
+    parser.add_argument('-v',
+                        action='store_true',
+                        help='verbose output set False if directly piped into IPD',
+                        )
 
     return parser
 
@@ -70,12 +74,15 @@ def collect_netflow(args: argparse.Namespace, ingresses: pd.DataFrame) -> None:
         src_path: str = netflow_dir + f'AS_1/{container}/port-{row["IN_IFACE"]}/{year}/{month}/{day}/nfcapd.{date}'
         dst_name: str = f'1_{row["PEER_SRC_IP"]}_{row["IN_IFACE"]}_{year}{month}{day}{hour}{minute}'
         dst_path: str = dst_dir + f'nfcapd.{dst_name}'
-        print(__file__)
         os.popen(f'mv {src_path} {dst_path}')
         os.popen(f'nfdump -r {dst_path} -o csv | gzip -9 > {dst_path}.csv.gz &')
 
-    os.system((f'bash {args.collector}/netflow_collector.sh '
-               f'{netflow_path} {date} {dst_dir} {args.conda} {args.collector}'))
+    if args.v:
+        os.system((f'bash {args.collector}/netflow_collector.sh '
+                   f'{netflow_path} {date} {dst_dir} {args.conda} {args.collector} 1'))
+    else:
+        os.system((f'bash {args.collector}/netflow_collector.sh '
+                   f'{netflow_path} {date} {dst_dir} {args.conda} {args.collector} 0'))
 
 
 def main() -> None:
@@ -87,7 +94,7 @@ def main() -> None:
     ingresses: pd.DataFrame = pd.read_csv(args.ipd + '/ingresslink/mini.txt')
 
     while True:
-        print(datetime.now())
+        # print(datetime.now())
         collect_netflow(args, ingresses)
 
         waiting = args.i - ((time.monotonic() - starttime) % args.i)

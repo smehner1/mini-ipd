@@ -30,6 +30,14 @@ diurnal_pattern_relative: list = [x/max(diurnal_pattern) for x in diurnal_patter
 def init_parser() -> argparse.ArgumentParser:
     '''initializes a parser for the CLI'''
     parser = argparse.ArgumentParser()
+    parser.add_argument('--static',
+                        help='flag to start traffic generation in a static way',
+                        action='store_true',
+                        )
+    parser.add_argument('--killcollector',
+                        help='flag to specify if all Netflow Collectors shall be stopped',
+                        action='store_true',
+                        )
     parser.add_argument('--start',
                         help='flag to define if to start or stop scapy processes',
                         action='store_true',
@@ -44,6 +52,11 @@ def init_parser() -> argparse.ArgumentParser:
                         help='path to directory of shared Folder in container',
                         type=str,
                         default='/home/host_files/',
+                        )
+    parser.add_argument('--conda',
+                        help='path to miniconda environment',
+                        type=str,
+                        default='../miniconda3/',
                         )
     parser.add_argument('--sharedirlocal',
                         help='path to directory of shared files on your system',
@@ -317,16 +330,21 @@ def start_daily_traffic() -> None:
             print(f'Time to generate configs: {end-start}')
             time.sleep(2)
 
+        start = datetime.now()
+        log_file = f'time_{start.year}-{start.month}-{start.day}-{start.hour}-{start.minute}.log'
+        open(log_file, 'w').close()
+        with open(log_file, 'a') as file:
+                file.write(f'iteration,noise,start_time,start_timestamp,flows\n')
+
         # start the traffic for corresponding time interval
         starttime: datetime = time.monotonic()
         for i in range(24):
             start = datetime.now()
             r: int = diurnal_pattern_relative[i]
-            # print(f'Start iteration {i} at: {start} with {int(args.f*r)} flows')
-            with open('time.log', 'a') as file:
-                file.write(f'{args.n}/{i}: {str(start)}\n')
-            print(f'Start iteration {i} at: {start} with {get_expected_iteration_flows(i)} flows')
-            # for net in [2, 3]:
+            num_flows: int = get_expected_iteration_flows(i)
+            with open(log_file, 'a') as file:
+                file.write(f'{i+1},{args.n},{str(start)},{str(int(round(start.timestamp())))},{num_flows}\n')
+            print(f'Start iteration {i} at: {start} with {num_flows} flows')
             for net in source_ases:
                 if i != 0:
                     # stop traffic in net
@@ -345,18 +363,19 @@ def start_daily_traffic() -> None:
         for net in source_ases:
             stop_as_traffic(net)
 
-        time.sleep(1*60)  # wait 3 minutes to ensure the netflow collector has collected the last iteration completely
+        if args.killcollector:
+            time.sleep(3*60)  # wait 3 minutes to ensure the netflow collector has collected the last iteration completely
 
-        print('KILL NETFLOW COLLECTOR')
-        os.popen("ps -ef | grep netflow_collector.py| grep -v grep | awk '{print $2}' | sudo xargs kill")
+            print('KILL NETFLOW COLLECTOR')
+            os.popen("ps -ef | grep netflow_collector.py| grep -v grep | awk '{print $2}' | sudo xargs kill")
+            # connect collected netflow
+            os.popen(f"{args.conda}/envs/mini-ipd/bin/python3 ../ipd-implementation/tools/connect_netflow.py")
     else:  # stop all run_pakets.py processes
         os.popen("ps -ef | grep run_pakets.py | grep -v grep | awk '{print $2}' | sudo xargs kill")
 
 
-def main() -> None:
+def start_static_traffic(args: argparse.Namespace) -> None:
     '''generates traffic for one iteration'''
-    parser: argparse.ArgumentParser = init_parser()
-    args: argparse.Namespace = parser.parse_args()
 
     external_links: str = f'{args.dir}/platform/config/external_links_config.txt'
     router_file: str = f'{args.dir}/platform/config/router_config_full.txt'
@@ -375,5 +394,10 @@ def main() -> None:
 
 
 if __name__ == '__main__':
-    # main()
-    start_daily_traffic()
+    parser: argparse.ArgumentParser = init_parser()
+    args: argparse.Namespace = parser.parse_args()
+
+    if args.static:
+        start_static_traffic(args)
+    else:
+        start_daily_traffic()
