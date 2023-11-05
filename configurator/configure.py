@@ -18,7 +18,7 @@ def init_parser() -> argparse.ArgumentParser:
     parser.add_argument('--dir',
                         help='path to directory of mini internet',
                         type=str,
-                        default=os.getcwd(),
+                        default='../mini-internet/platform/',
                         )
 
     return parser

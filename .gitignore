@@ -3,3 +3,5 @@ miniconda3/
 traffic_generator/__pycache__
 
 shared_directories/router_files/netflow_mini-internet/
+shared_directories/host_files/*.csv
+traffic_generator/*.log
