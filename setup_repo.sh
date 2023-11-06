@@ -23,18 +23,19 @@ else
 fi
 
 
-# setup Conda environment
-conda  config --add channels conda-forge
+# # setup Conda environment
+conda config --add channels conda-forge
 conda create --name mini-ipd --file requirements.txt --yes
 
 
-# enable access to python environment for hosts
+# # enable access to python environment for hosts
+echo COPY MINICONDA ENV TO MOUNTED FOLDER OF HOSTS
 cp -r ${miniconda} shared_directories/host_files
 
 
 # setup submodules
-git submodule --init
-git submodule --update
+git submodule init
+git submodule update
 
 cd mini-internet
 git checkout mini-ipd
@@ -42,6 +43,6 @@ git checkout mini-ipd
 cd ../ipd-implementation
 git checkout mini-ipd
 
-
+echo START MINI-IPD
 # start basic Mini-IPD
 bash ./start_mini_ipd.sh ${miniconda}
