@@ -43,6 +43,5 @@ git checkout mini-ipd
 cd ../ipd-implementation
 git checkout mini-ipd
 
-echo START MINI-IPD
-# start basic Mini-IPD
-bash ./start_mini_ipd.sh ${miniconda}
+echo START EXAMPLE MINI-IPD
+bash ./start_mini_ipd_example.sh ${miniconda}

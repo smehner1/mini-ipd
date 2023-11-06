@@ -41,7 +41,7 @@ $PYTHON configure.py
 
 
 # Start a 2-hour Traffic Generation Task
-# cd ../traffic_generator
-# bash ./generate_day_traffic.sh ${miniconda}
+cd ../traffic_generator
+bash ./generate_day_traffic.sh ${miniconda}
 
 cd $start
