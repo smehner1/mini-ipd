@@ -114,7 +114,7 @@ This Repository allows you to start a Mini-Internet, generate Traffic and apply 
 #### 4.4.1 Static Generation
 
 - needs configured Mini-Internet
-- needs configured flows for a single iteration using `generate_scapy_configs.py` $\rightarrow$ #static-flow-generation
+- needs configured flows for a single iteration using `generate_scapy_configs.py` $\rightarrow$ Static Flow Generation](#421-static-flow-generation)
 - start traffic generator by ` traffic_generator/traffic_generator.py --start --static`
     - you can add noise by using `-n <value>` (with value between 0 and 1)
     - if necessary adapt pathes to Mini-Internet using `--dir <path>`
@@ -126,13 +126,13 @@ This Repository allows you to start a Mini-Internet, generate Traffic and apply 
 
 - needs configured Mini-Internet
 - **does not need configured flows $\rightarrow$ can be configured using the traffic controller**
-    - configure them manually as shown in #generate-flow-configuration-for-your-case
+    - configure them manually as shown in [Generate Flow Configuration For Your Case](#42-generate-flow-configuration-for-your-case)
 - start day traffic with
     - flow generation `-g`
     - noise `-n <value>` (value between 0 and 1)
     - warp factor `-w <value>` (value represents seconds that each iteration will last)
     - given overall flows number `-f <value>`
-    - for definition of overflow and hypergiants see #generate-flow-configuration-for-your-case
+    - for definition of overflow and hypergiants see [Generate Flow Configuration For Your Case](#42-generate-flow-configuration-for-your-case)
 - after 24 iterations the traffic generator will automatically stop all traffic
     - setting Flag `--killcollector` also stops a running netflow collector and the Netflow is also directly connected (`ipd-implementation/tools/connect_netflow.py`)
 
