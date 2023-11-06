@@ -114,7 +114,7 @@ This Repository allows you to start a Mini-Internet, generate Traffic and apply 
 #### 4.4.1 Static Generation
 
 - needs configured Mini-Internet
-- needs configured flows for a single iteration using `generate_scapy_configs.py` $\rightarrow$ Static Flow Generation](#421-static-flow-generation)
+- needs configured flows for a single iteration using `generate_scapy_configs.py` $\rightarrow$ [Static Flow Generation](#421-static-flow-generation)
 - start traffic generator by ` traffic_generator/traffic_generator.py --start --static`
     - you can add noise by using `-n <value>` (with value between 0 and 1)
     - if necessary adapt pathes to Mini-Internet using `--dir <path>`
