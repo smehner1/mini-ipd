@@ -17,21 +17,26 @@ then
     miniconda3/bin/conda init bash
     miniconda3/bin/conda init zsh
 
-    miniconda=miniconda3
+    start_dir=$(pwd)
+    miniconda="${start_dir}/miniconda3"
+    # setup Conda environment
+    conda config --add channels conda-forge
+    conda create --name mini-ipd --file requirements.txt --yes
 else
     miniconda=$1
+    installed=$2
+
+    if [ $installed -eq 0 ];
+    then
+        # setup Conda environment
+        conda config --add channels conda-forge
+        conda create --name mini-ipd --file requirements.txt --yes
+    fi
 fi
 
-
-# # setup Conda environment
-conda config --add channels conda-forge
-conda create --name mini-ipd --file requirements.txt --yes
-
-
-# # enable access to python environment for hosts
+# enable access to python environment for hosts
 echo COPY MINICONDA ENV TO MOUNTED FOLDER OF HOSTS
-cp -r ${miniconda} shared_directories/host_files
-
+sudo cp -r ${miniconda} shared_directories/host_files
 
 # setup submodules
 git submodule init
@@ -44,4 +49,5 @@ cd ../ipd-implementation
 git checkout mini-ipd
 
 echo START EXAMPLE MINI-IPD
-bash ./start_mini_ipd_example.sh ${miniconda}
+cd ..
+sudo bash ./start_mini_ipd_example.sh ${miniconda}
