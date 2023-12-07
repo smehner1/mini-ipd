@@ -4,15 +4,14 @@ This Repository allows you to start a Mini-Internet, generate Traffic and apply 
 
 ## 1. TODOs
 
+- [ ] update Mini-Internet configuration to announce and assign more different prefixes? (`configure.py`)
+    - [ ] `generate_scapy_configs.py l.167` change somethinge here to generate more specific/variable prefixes to generate from -> What is the impact on the balancing/traffic flow?
+
 - [ ] test single modules using relative paths
     - [x] garbage collector
     - [x] netflow collector
     - [x] traffic generator
     - [ ] IPD
-- [ ] improve pipeline implementation
-    - [x] add logging for traffic generation for easier understanding
-    - [ ] check metrics calculation for easy application
-    - [ ] start only needed nfdcap processes easy achievable?
 - [ ] Instructions for general usage
 
 ## 2. Requirements
@@ -27,7 +26,9 @@ This Repository allows you to start a Mini-Internet, generate Traffic and apply 
 1. Clone this [Repository](https://git.informatik.tu-cottbus.de/bergmmax/mini-ipd.git)
 2. Setup your Repository: `$ bash ./setup_repo.sh`
     - Installs [Miniconda](https://docs.conda.io/projects/miniconda/en/latest/index.html#) if you have not installed it yet
-        - if installed call script like: `$ bash ./setup_repo.sh path/to/miniconda/installation`
+        - **if installed**:
+            - if **env installed** call script like: `$ bash ./setup_repo.sh path/to/miniconda/installation 1`
+            - if **env not installed** call script like: `$ bash ./setup_repo.sh path/to/miniconda/installation 0`
     - creates a conda environment including required packages (`mini-ipd`)
     - git submodule setup (Mini-Internet and IPD)
     - Startup basic Mini-IPD (`$ bash ./start_mini_ipd_example.sh path/to/miniconda/installation`)
@@ -47,8 +48,8 @@ This Repository allows you to start a Mini-Internet, generate Traffic and apply 
 
 - If you want to build your very own Mini-Internet configure it within the `mini-internet` directory
     - For further information read configuration instructions at [Mini-Internet](https://github.com/nsg-ethz/mini_internet_project/wiki)
-    - Please keep in mind that the Mini-Internet is still evelopying and the wiki can change over time
-    - Please keep in mind that we do not guarantee functionality of our tools when changing the basic structure of our Mini-Internet
+    - Please note that the Mini-Internet is still evelopying and the wiki can change over time
+    - Please note that we do not guarantee functionality of our tools when changing the basic structure of our Mini-Internet
 
 ### 4.2 Generate Flow Configuration For Your Case
 
@@ -87,7 +88,9 @@ This Repository allows you to start a Mini-Internet, generate Traffic and apply 
 
 #### 4.2.3 Increase Variability In Generation *TBD*
 
-- **TBA**: how to add more variability of source address spaces
+- by adding more ASes to your Mini-IPD automatically more prefixes will be added
+    - note, that this will add more `/8` prefixes
+- to add more different prefixes **TBD**
 
 ### 4.3 Start Netflow Collector
 
