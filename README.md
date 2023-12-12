@@ -4,15 +4,17 @@ This Repository allows you to start a Mini-Internet, generate Traffic and apply 
 
 ## 1. TODOs
 
-- [ ] update Mini-Internet configuration to announce and assign more different prefixes? (`configure.py`)
-    - [ ] `generate_scapy_configs.py l.167` change somethinge here to generate more specific/variable prefixes to generate from -> What is the impact on the balancing/traffic flow?
-
-- [ ] test single modules using relative paths
+- [x] test single modules using relative paths
     - [x] garbage collector
     - [x] netflow collector
     - [x] traffic generator
-    - [ ] IPD
-- [ ] Instructions for general usage
+    - [x] IPD
+- [x] Instructions for general usage
+- [ ] Finaler Test @Stefan :-)
+
+Optional:
+- [ ] update Mini-Internet configuration to announce and assign more different prefixes? (`configure.py`)
+    - [ ] `generate_scapy_configs.py l.167` & `configure_balancing.py l.106` change somethinge here to generate more specific/variable prefixes to generate from -> What is the impact on the balancing/traffic flow?
 
 ## 2. Requirements
 
@@ -29,12 +31,12 @@ This Repository allows you to start a Mini-Internet, generate Traffic and apply 
         - **if installed**:
             - if **env installed** call script like: `$ bash ./setup_repo.sh path/to/miniconda/installation 1`
             - if **env not installed** call script like: `$ bash ./setup_repo.sh path/to/miniconda/installation 0`
-    - creates a conda environment including required packages (`mini-ipd`)
+    - Creates a conda environment including required packages (`mini-ipd`)
     - git submodule setup (Mini-Internet and IPD)
     - Startup basic Mini-IPD (`$ bash ./start_mini_ipd_example.sh path/to/miniconda/installation`)
-        - startup a Mini-Internet with 5 ASes
-        - configure Mini-Internet for IPD usage
-        - start Traffic Generator to get a first 24-Hour Trace within 2 hours
+        - Startup a Mini-Internet with 5 ASes
+        - Configure Mini-Internet for IPD usage
+        - Start Traffic Generator to get a first 24-Hour Trace within 2 hours
 
 ## 4. Further Usage Instructions
 
@@ -53,96 +55,103 @@ This Repository allows you to start a Mini-Internet, generate Traffic and apply 
 
 ### 4.2 Generate Flow Configuration For Your Case
 
-- to generate scapy flows run the `traffic_generator/generate_scapy_configs.py`
-- for specific use cases see the following $\downarrow$
+- To generate scapy flows run the `traffic_generator/generate_scapy_configs.py`
+- For specific use cases see the following $\downarrow$
 
 #### 4.2.1 Static Flow Generation
 
-- run the configuration script with flag `--static`
-- define what portion of flows is generated from what AS in `traffic_generator/configs/as_traffic_distro.csv`
+- Run the configuration script with flag `--static`
+- Define what portion of flows is generated from what AS in `traffic_generator/configs/as_traffic_distro.csv`
 
 #### 4.2.2 24-Hour Flow Generation (Diurnal Pattern)
 
-- when not using the `--static` flag traffic for 24 iterations will be generated
-- each iteration has a given portion of flows $\rightarrow$ diurnal pattern
-- define what portion of flows is generated from what AS in `traffic_generator/configs/as_traffic_distro.csv`
+- When not using the `--static` flag traffic for 24 iterations will be generated
+- Each iteration has a given portion of flows $\rightarrow$ diurnal pattern
+- Define what portion of flows is generated from what AS in `traffic_generator/configs/as_traffic_distro.csv`
 
 #### 4.2.2.1 Offloading in Diurnal Pattern **TBD**
 
-- to add an offloading event run **TBA**
-- you need to give:
-    - *prefix* to offload
-    - *iteration* of offloading
-    - the AS the flow originally originated
-    - the AS the flows are offloaded to
-- this will apply the canges directly in your configurations from th diurnal pattern
+- To add an offloading event run **TBA**
+- You need to give:
+    - *Prefix* to offload
+    - *Iteration* of offloading
+    - The AS the flow originally originated
+    - The AS the flows are offloaded to
+- This will apply the canges directly in your configurations from th diurnal pattern
 
 #### 4.2.2.2 Hypergiants in Diurnal Pattern
 
-- to increase portion of flows from a given prefix for a given iteration use the `traffic_generator/configs/hypergiants.csv`
-- add for each increase:
-    - *network* within the number of flows shall be increased
-    - *prefix* from which the flows are generated
-    - *ratio* of increase
-    - *iteration* to increase the flows
+- To increase portion of flows from a given prefix for a given iteration use the `traffic_generator/configs/hypergiants.csv`
+- Add for each increase:
+    - *Network* within the number of flows shall be increased
+    - *Prefix* from which the flows are generated
+    - *Ratio* of increase
+    - *Iteration* to increase the flows
 
 #### 4.2.3 Increase Variability In Generation *TBD*
 
-- by adding more ASes to your Mini-IPD automatically more prefixes will be added
-    - note, that this will add more `/8` prefixes
-- to add more different prefixes **TBD**
+- By adding more ASes to your Mini-IPD automatically more prefixes will be added
+    - Note, that this will add more `/8` prefixes
+- To add more different prefixes **TBD**
 
 ### 4.3 Start Netflow Collector
 
-- start Netflow Collector by executing `netflow_collector/netflow_collector.py -conda <your_conda_env>`
-- if necessary specify ipd-implementation directory (`-ipd <path>`), the netflow directory (`-nf <path>`)
-- define how many minutes to wait before collecting netflow by using `-offset <value>`
-- define interval of collection using `-i <value>`
+- Start Netflow Collector by executing `netflow_collector/netflow_collector.py -conda <your_conda_env>`
+- If necessary specify ipd-implementation directory (`-ipd <path>`), the netflow directory (`-nf <path>`)
+- Define how many minutes to wait before collecting netflow by using `-offset <value>`
+- Define interval of collection using `-i <value>`
 
-- if you use the Netflow Collector to directly pipe the Netflow into the IPD do not use the verbose flag `-v`
+- If you use the Netflow Collector to directly pipe the Netflow into the IPD do not use the verbose flag `-v`
 
-- *optionally connect Netflow after execution to have your Netflow within one file for later usage (`ipd_implementation/tools/connect_netflow.py`)*
+- *Optionally connect Netflow after execution to have your Netflow within one file for later usage (`ipd_implementation/tools/connect_netflow.py`)*
 
 
 ### 4.4 Start Traffic Generator
 
 **!!! Starting the traffic generator does not start the Netflow Collector, so you need to start it in parallel !!!**
 
-- you have 2 ways to generate traffic:
-    - static generation with continuously sending the same packages (set flag `--static`)
-        - needs manual stopping
+- You have 2 ways to generate traffic:
+    - Static generation with continuously sending the same packages (set flag `--static`)
+        - Needs manual stopping
     - 24-hour trace generation
-        - writes a log file into `time_yyyy_mm_dd_hh_mm.log` within the traffic generator directory that enables full tracking when what iteration started for later analyzes
+        - Writes a log file into `time_yyyy_mm_dd_hh_mm.log` within the traffic generator directory that enables full tracking when what iteration started for later analyzes
 
 #### 4.4.1 Static Generation
 
-- needs configured Mini-Internet
-- needs configured flows for a single iteration using `generate_scapy_configs.py` $\rightarrow$ [Static Flow Generation](#421-static-flow-generation)
-- start traffic generator by ` traffic_generator/traffic_generator.py --start --static`
-    - you can add noise by using `-n <value>` (with value between 0 and 1)
-    - if necessary adapt pathes to Mini-Internet using `--dir <path>`
-- stop traffic generator by ` traffic_generator/traffic_generator.py --kill`
+- Needs configured Mini-Internet
+- Needs configured flows for a single iteration using `generate_scapy_configs.py` $\rightarrow$ [Static Flow Generation](#421-static-flow-generation)
+- Start traffic generator by ` traffic_generator/traffic_generator.py --start --static`
+    - You can add noise by using `-n <value>` (with value between 0 and 1)
+    - If necessary adapt pathes to Mini-Internet using `--dir <path>`
+- Stop traffic generator by ` traffic_generator/traffic_generator.py --kill`
 
-- *optionally connect Netflow after execution to have your Netflow within one file for later usage*
+- *Optionally connect Netflow after execution to have your Netflow within one file for later usage*
 
 #### 4.4.2 24-Hour generation
 
-- needs configured Mini-Internet
-- **does not need configured flows $\rightarrow$ can be configured using the traffic controller**
-    - configure them manually as shown in [Generate Flow Configuration For Your Case](#42-generate-flow-configuration-for-your-case)
-- start day traffic with
-    - flow generation `-g`
-    - noise `-n <value>` (value between 0 and 1)
-    - warp factor `-w <value>` (value represents seconds that each iteration will last)
-    - given overall flows number `-f <value>`
-    - for definition of overflow and hypergiants see [Generate Flow Configuration For Your Case](#42-generate-flow-configuration-for-your-case)
-- after 24 iterations the traffic generator will automatically stop all traffic
-    - setting Flag `--killcollector` also stops a running netflow collector and the Netflow is also directly connected (`ipd-implementation/tools/connect_netflow.py`)
+- Needs configured Mini-Internet
+- **Does not need configured flows $\rightarrow$ can be configured using the traffic controller**
+    - Configure them manually as shown in [Generate Flow Configuration For Your Case](#42-generate-flow-configuration-for-your-case)
+- Start day traffic with
+    - Flow generation `-g`
+    - Noise `-n <value>` (value between 0 and 1)
+    - Warp factor `-w <value>` (value represents seconds that each iteration will last)
+    - Given overall flows number `-f <value>`
+    - For definition of overflow and hypergiants see [Generate Flow Configuration For Your Case](#42-generate-flow-configuration-for-your-case)
+- After 24 iterations the traffic generator will automatically stop all traffic
+    - Setting Flag `--killcollector` also stops a running netflow collector and the Netflow is also directly connected (`ipd-implementation/tools/connect_netflow.py`)
 
-### 4.5 Apply IPD *TBD*
+### 4.5 Apply IPD
 
-**TBA**
+`ipd-implementation/start_algo_{offline,online}.sh`
 
-### 4.6 Apply Metrics *TBD*
+- Pipe one of your Netflow Traces into the IPD
+- In best case you used the `connect_netflow.py` to get one big file for easier usage
+- The generated Netflow is placed within `ipd-implementation/netflow` directory
 
-**TBA**
+- When running in **online modus** (Mini-IPD is running and we can pipe directly from the Netflow-Collector into the IPD) you only need to give path to your Miniconda directory using `-m <path/to/conda>`
+    - the IPD and Netflow Collector will run as long as you want
+    - stop the full process by pressing `ctrl+C`, which will stop and connect your collected Netflow
+- When running in **offline modus** (Netflow Trace already exists) you additionally need to give the path to `.csv.gz` file using `-f <path/to/csv.gz>`
+
+- Change the parameters within those files to impact the IPD results

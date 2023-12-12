@@ -10,7 +10,7 @@ conda_dir=$4
 collector_dir=$5
 verbose=$6
 
-PYTHON=$conda_dir/envs/mini/bin/python3
+PYTHON=$conda_dir/envs/mini-ipd/bin/python3
 
 chmod ugo+rw -R ${netflow_path}
 
