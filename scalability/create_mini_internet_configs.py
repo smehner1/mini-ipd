@@ -5,8 +5,8 @@ __author__ = 'Max Bergmann'
 
 ASES: int = int(sys.argv[1])
 
-AS_CONFIG_FILE: str = '../mini-internet/platform/config/AS_config.txt'
-EXTERNAL_LINKS_CONFIG_FILE: str = '../mini-internet/platform/config/external_links_config.txt'
+AS_CONFIG_FILE: str = 'mini-internet/platform/config/AS_config.txt'
+EXTERNAL_LINKS_CONFIG_FILE: str = 'mini-internet/platform/config/external_links_config.txt'
 
 CENTER_AS: int = 1
 ROUTERS: list = ['LOND', 'BARC', 'COTT', 'SAOP', 'NEWY', 'SANF', 'MIAM', 'ACCR']
