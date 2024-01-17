@@ -1,6 +1,7 @@
-[submodule "mini-internet"]
-	path = mini-internet
-	url = https://git.informatik.tu-cottbus.de/rechnernetze/mini-internet
 [submodule "ipd-implementation"]
 	path = ipd-implementation
 	url = git@github.com:smehner1/ipd.git
+[submodule "mini-internet"]
+	path = mini-internet
+	url = git@github.com:smehner1/mini_internet_project.git
+	branch = mini-ipd
