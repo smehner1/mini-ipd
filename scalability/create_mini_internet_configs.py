@@ -9,7 +9,7 @@ AS_CONFIG_FILE: str = '../mini-internet/platform/config/AS_config.txt'
 EXTERNAL_LINKS_CONFIG_FILE: str = '../mini-internet/platform/config/external_links_config.txt'
 
 CENTER_AS: int = 1
-ROUTERS: list = ['LOND', 'BARC', 'COTT', 'SAOP', 'NEWY', 'SANF', 'MIAM', 'ACCR']
+ROUTERS: list = ['LOND', 'BARC', 'BERL', 'SAOP', 'NEWY', 'SANF', 'MIAM', 'ACCR']
 OFFSET: int = 4
 ARROUND: int = 5
 
@@ -17,9 +17,9 @@ CONNECTIONS: dict = {
     2: [
         ('LOND', 'BARC'),
         ('BARC', 'MIAM'),
-        ('COTT', 'BARC'),
-        ('COTT', 'NEWY'),
-        ('COTT', 'MIAM'),
+        ('BERL', 'BARC'),
+        ('BERL', 'NEWY'),
+        ('BERL', 'MIAM'),
     ],
     3: [
         ('LOND', 'MIAM'),
@@ -29,16 +29,16 @@ CONNECTIONS: dict = {
         ('SANF', 'BARC'),
     ],
     4: [
-        ('NEWY', 'COTT'),
-        ('SANF', 'COTT'),
+        ('NEWY', 'BERL'),
+        ('SANF', 'BERL'),
         ('SANF', 'SANF'),
         ('SANF', 'LOND'),
         ('MIAM', 'LOND'),
     ],
     5: [
-        ('MIAM', 'COTT'),
+        ('MIAM', 'BERL'),
         ('ACCR', 'LOND'),
-        ('SAOP', 'COTT'),
+        ('SAOP', 'BERL'),
         ('SAOP', 'SANF'),
         ('SAOP', 'LOND'),
     ]
