@@ -1,10 +1,10 @@
 router,iface,ip
-COTT,port_BARC,x.0.1.1/24
-COTT,port_LOND,x.0.2.1/24
+BERL,port_BARC,x.0.1.1/24
+BERL,port_LOND,x.0.2.1/24
 LOND,port_NEWY,x.0.8.1/24
 LOND,port_BARC,x.0.12.2/24
-LOND,port_COTT,x.0.2.2/24
-BARC,port_COTT,x.0.1.2/24
+LOND,port_BERL,x.0.2.2/24
+BARC,port_BERL,x.0.1.2/24
 BARC,port_LOND,x.0.12.1/24
 BARC,port_NEWY,x.0.4.1/24
 BARC,port_MIAM,x.0.6.1/24

@@ -9,7 +9,7 @@ __author__ = 'Max Bergmann'
 
 
 HOLE_ROUTERS: list = ['NEWY', 'SANF']  # routers in around ASs that are used for egress from AS 1
-EGRESS_LINKS: list = [('COTT', 'NEWY', 2), ('NEWY', 'NEWY', 3), ('SANF', 'SANF', 4), ('SAOP', 'SANF', 5)]
+EGRESS_LINKS: list = [('BERL', 'NEWY', 2), ('NEWY', 'NEWY', 3), ('SANF', 'SANF', 4), ('SAOP', 'SANF', 5)]
 
 CENTER_AS: int = 1
 
