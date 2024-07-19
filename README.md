@@ -1,31 +1,37 @@
 # Mini-IPD
 
-This Repository allows you to start a Mini-Internet, generate Traffic and apply the Ingress Point Detection Algorithm, which we call Mini-IPD. In the following, we explain how you can setup the Mini-IPD on your machine.
+Welcome to the Mini-IPD project. This project enables you to experiment with the Ingress Point Detection algorithm in an ISP scenario that is emulated in the [mini Internet](https://github.com/nsg-ethz/mini_internet_project) environment.
 
-## 1. TODOs
+The code in this repository enables you to start a Mini-Internet, generate traffic, and apply the Ingress Point Detection algorithm, which we call Mini-IPD. In the following, we explain how you can setup the Mini-IPD on your server.
 
-- [x] test single modules using relative paths
-    - [x] garbage collector
-    - [x] netflow collector
-    - [x] traffic generator
-    - [x] IPD
-- [x] Instructions for general usage
-- [ ] Finaler Test @Stefan :-)
+For the details of our Ingress Point Detection Algorithm, please refer to our [SIGCOMM'24 paper](https://www.ohohlfeld.com/paper/ipd-paper-sigcomm24.pdf).
 
-Optional:
-- [ ] update Mini-Internet configuration to announce and assign more different prefixes? (`configure.py`)
-    - [ ] `generate_scapy_configs.py l.167` & `configure_balancing.py l.106` change somethinge here to generate more specific/variable prefixes to generate from -> What is the impact on the balancing/traffic flow?
+If you use this project in an academic context, please cite our SIGCOMM'24 paper:
+```
+@inproceedings{IPD,
+    title = {{IPD: Detecting Traffic Ingress Points at ISPs}},
+    author = {Stefan Mehner and Helge Reelfs and Ingmar Poese and Oliver Hohlfeld},
+    booktitle = {ACM SIGCOMM},
+    year = 2024
+```
+
+## Contacts
+Stefan Mehner <uk101435 [at] uni-kassel . de> \
+Oliver Hohlfeld <oliver . hohlfeld [at] uni-kassel . de> \
+[Distributed Systems Group at University of Kassel](https://www.vs.uni-kassel.de)
 
 ## 2. Requirements
 
+To run Mini-IPD with the provided ISP scenario, we assume that you have a server available with about 100 GB of available memory and enough CPU cores.
+
 - Docker (+ rights to execute it)
 - Miniconda (will be installed when running executing the Mini-IPD setup if not already installed)
-
-**TBA**
+- `screen` - if not available, install with `sudo apt-get install screen` on Ubuntu systems
+- Mini Internet requirements: since we use the Mini Internet, make sure that you have satisfied all the requirements that the original mini internet project has set. To do so, [follow the steps on this page](https://github.com/nsg-ethz/mini_internet_project/wiki/prerequisite). This includes to install `openvswitch-switch`.
 
 ## 3. Installation & First Startup
 
-1. Clone this [Repository](https://git.informatik.tu-cottbus.de/bergmmax/mini-ipd.git)
+1. Clone this [Repository](https://github.com/smehner1/mini_internet_project/), which contains our extended version of the Mini Internet
 2. Setup your Repository: `$ bash ./setup_repo.sh`
     - Installs [Miniconda](https://docs.conda.io/projects/miniconda/en/latest/index.html#) if you have not installed it yet
         - **if installed**:

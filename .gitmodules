@@ -1,7 +1,7 @@
 [submodule "ipd-implementation"]
 	path = ipd-implementation
-	url = git@github.com:smehner1/ipd.git
+	url = https://github.com/smehner1/ipd
 [submodule "mini-internet"]
 	path = mini-internet
-	url = git@github.com:smehner1/mini_internet_project.git
+	url = https://github.com/smehner1/mini_internet_project
 	branch = mini-ipd
