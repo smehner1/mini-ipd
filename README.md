@@ -4,6 +4,8 @@ Welcome to the Mini-IPD project. This project enables you to experiment with the
 
 The code in this repository enables you to start a Mini-Internet, generate traffic, and apply the Ingress Point Detection algorithm, which we call Mini-IPD. In the following, we explain how you can setup the Mini-IPD on your server.
 
+Note: The prototypic version of our Ingress Point Detection algorithm that is used by Mini-IPD is available as [seperate repository](https://github.com/smehner1/ipd) and used in this repo as sub module. If you are only interested in the pure IPD implementation, please refer to to the [IPD algorithm](https://github.com/smehner1/ipd) repository instead.
+
 For the details of our Ingress Point Detection Algorithm, please refer to our [SIGCOMM'24 paper](https://www.ohohlfeld.com/paper/ipd-paper-sigcomm24.pdf).
 
 If you use this project in an academic context, please cite our SIGCOMM'24 paper:
@@ -13,6 +15,7 @@ If you use this project in an academic context, please cite our SIGCOMM'24 paper
     author = {Stefan Mehner and Helge Reelfs and Ingmar Poese and Oliver Hohlfeld},
     booktitle = {ACM SIGCOMM},
     year = 2024
+}
 ```
 
 ## Contacts
@@ -24,25 +27,22 @@ Oliver Hohlfeld <oliver . hohlfeld [at] uni-kassel . de> \
 
 To run Mini-IPD with the provided ISP scenario, we assume that you have a server available with about 100 GB of available memory and enough CPU cores.
 
-- Docker (+ rights to execute it)
-- Miniconda (will be installed when running executing the Mini-IPD setup if not already installed)
+- `docker` (+ rights to execute it) (See e.g., [this page](https://docs.docker.com/engine/install/ubuntu/) on how to install Docker on Ubuntu)
+- `miniconda` (will be installed when running executing the Mini-IPD setup if not already installed)
 - `screen` - if not available, install with `sudo apt-get install screen` on Ubuntu systems
 - Mini Internet requirements: since we use the Mini Internet, make sure that you have satisfied all the requirements that the original mini internet project has set. To do so, [follow the steps on this page](https://github.com/nsg-ethz/mini_internet_project/wiki/prerequisite). This includes to install `openvswitch-switch`.
 
 ## 3. Installation & First Startup
 
-1. Clone this [Repository](https://github.com/smehner1/mini_internet_project/), which contains our extended version of the Mini Internet
-2. Setup your Repository: `$ bash ./setup_repo.sh`
+1. Clone this repository with all submodules: `git clone --recurse-submodules https://github.com/smehner1/mini-ipd.git`
+2. Check if the basic requirements are met by running `bash requirements.sh` [Note: this assumes that you are using Ubuntu or Debian].
+3. Setup your Repository: `$ bash ./setup_repo.sh`
     - Installs [Miniconda](https://docs.conda.io/projects/miniconda/en/latest/index.html#) if you have not installed it yet
-        - **if installed**:
-            - if **env installed** call script like: `$ bash ./setup_repo.sh path/to/miniconda/installation 1`
-            - if **env not installed** call script like: `$ bash ./setup_repo.sh path/to/miniconda/installation 0`
     - Creates a conda environment including required packages (`mini-ipd`)
-    - git submodule setup (Mini-Internet and IPD)
     - Startup basic Mini-IPD (`$ bash ./start_mini_ipd_example.sh path/to/miniconda/installation`)
         - Startup a Mini-Internet with 5 ASes
         - Configure Mini-Internet for IPD usage
-        - Start Traffic Generator to get a first 24-Hour Trace within 2 hours
+        - Start Traffic Generator to get a first 24-hour trace within 2 hours
 
 ## 4. Further Usage Instructions
 
