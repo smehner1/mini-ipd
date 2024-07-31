@@ -75,14 +75,17 @@ To run Mini-IPD with the provided ISP scenario, we assume that you have a server
 - Each iteration has a given portion of flows $\rightarrow$ diurnal pattern
 - Define what portion of flows is generated from what AS in `traffic_generator/configs/as_traffic_distro.csv`
 
-#### 4.2.2.1 Offloading in Diurnal Pattern **TBD**
+#### 4.2.2.1 Offloading in Diurnal Pattern
 
-- To add an offloading event run **TBA**
-- You need to give:
-    - *Prefix* to offload
-    - *Iteration* of offloading
-    - The AS the flow originally originated
-    - The AS the flows are offloaded to
+- To add an offloading event run the `traffic_controller.py` with the flags `-o <from_as>` and `-ot <to_as>`
+    - will automatically generate the offloading traffic (`connections_<AS>_overflow.csv`) for source and target AS
+    - amount of offloaded traffic is chosen randomly between 10%, 20% and 30%
+- **IMPORTANT**: Offloading is hardcoded at the moment $\rightarrow$ dynamically **TBA**
+    - make parameter in `traffic_controller.py` lines 307 to 328 dynamic
+    - you need to adapt
+        - the offloaded prefix
+        - the from (`-o`) and to (`-ot`) AS
+        - the iteration(s) to offloading
 - This will apply the canges directly in your configurations from th diurnal pattern
 
 #### 4.2.2.2 Hypergiants in Diurnal Pattern
@@ -94,11 +97,11 @@ To run Mini-IPD with the provided ISP scenario, we assume that you have a server
     - *Ratio* of increase
     - *Iteration* to increase the flows
 
-#### 4.2.3 Increase Variability In Generation *TBD*
+#### 4.2.3 Increase Variability In Generation
 
 - By adding more ASes to your Mini-IPD automatically more prefixes will be added
     - Note, that this will add more `/8` prefixes
-- To add more different prefixes **TBD**
+- **Future Work**: add more flexibility by adding different prefixes with different lengths
 
 ### 4.3 Start Netflow Collector
 
