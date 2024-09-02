@@ -18,6 +18,13 @@ If you use this project in an academic context, please cite our SIGCOMM'24 paper
 }
 ```
 
+It's important to note that the results we present in the paper are derived from the system in operation at an ISP. All the results are based on operational data, which we cannot share.
+
+Yet, we want to enable every interested researcher to experiment with the presented Ingress Point Detection approach. To do this, we have implemented Mini-IPD, which emulates an ISP with connected networks (CDNs, etc.). Since this requires running multiple ASes, generating and capturing traffic, and running IPD, it results in a rather complex software stack that requires notable hardware resources (e.g., a server with 100G of memory) and several hours for setup and startup. While the artifacts may not be used to reproduce the plots in the paper, they serve a crucial purpose in enabling the emulation of an ISP and experimentation with the published algorithm. The ability to configure traffic generation and experiment scenarios, as detailed in Section 4.
+
+With this release, we want to foster experimentation with our approach and to enable future research on ISP traffic management and measurement.
+
+We further note that the results presented 
 ## Contacts
 Stefan Mehner <uk101435 [at] uni-kassel . de> \
 Oliver Hohlfeld <oliver . hohlfeld [at] uni-kassel . de> \
@@ -25,12 +32,14 @@ Oliver Hohlfeld <oliver . hohlfeld [at] uni-kassel . de> \
 
 ## 2. Requirements
 
-To run Mini-IPD with the provided ISP scenario, we assume that you have a server available with about 100 GB of available memory and enough CPU cores.
+To run Mini-IPD with the provided ISP scenario, we assume that you have a server available with about 100 GB of available memory and enough CPU cores. We further note, that you will likely need several hours for both setting up and starting up Mini-IPD. Starting a Mini-IPD instance is in the order of 30-45 minutes on most systems.
 
 - `docker` (+ rights to execute it) (See e.g., [this page](https://docs.docker.com/engine/install/ubuntu/) on how to install Docker on Ubuntu)
 - `miniconda` (will be installed when running executing the Mini-IPD setup if not already installed)
 - `screen` - if not available, install with `sudo apt-get install screen` on Ubuntu systems
 - Mini Internet requirements: since we use the Mini Internet, make sure that you have satisfied all the requirements that the original mini internet project has set. To do so, [follow the steps on this page](https://github.com/nsg-ethz/mini_internet_project/wiki/prerequisite). This includes to install `openvswitch-switch`.
+
+Note: in some setups, the miniconda script might create errors in cases where miniconda was already installed. This can be fixed by removing miniconda and starting the miniconda setup script again.
 
 ## 3. Installation & First Startup
 
@@ -60,6 +69,10 @@ To run Mini-IPD with the provided ISP scenario, we assume that you have a server
     - Please note that we do not guarantee functionality of our tools when changing the basic structure of our Mini-Internet
 
 ### 4.2 Generate Flow Configuration For Your Case
+
+Traffic ingress points can only be derived in an Internet with traffic, thus we need to enable the generation of traffic next to detect traffic ingress points. To enable a wide range of experimental use cases, we provide several example scenarios below.
+
+As noted above, all the evaluation results in the paper are based on operational data. Thus, these use cases cannot be used to generate the presented plots, but rather to provide an evaluation environment in which the Ingress Point Detection makes sense (e.g., there needs to be traffic with similar distributions as in a typical ISP, etc). While we have not used these scripts to write the paper, we see these use cases as enablers for further experimentation with traffic management.
 
 - To generate scapy flows run the `traffic_generator/generate_scapy_configs.py`
 - For specific use cases see the following $\downarrow$
